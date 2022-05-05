@@ -37,14 +37,7 @@ class _RegisterViewState extends State<RegisterView> {
     return Scaffold(
       appBar: AppBar(title: const Text('Register'),
       ),
-      body: FutureBuilder(
-        future: Firebase.initializeApp(
-          options: DefaultFirebaseOptions.currentPlatform,),
-        builder: (context, snapshot) {
-          switch(snapshot.connectionState){  
-            // ignore: todo
-            case ConnectionState.done:       // TODO: Handle this case.
-            return Column(
+      body: Column(
           children: [
             TextField(
               controller: _email,
@@ -87,17 +80,16 @@ class _RegisterViewState extends State<RegisterView> {
               }
               
             }, 
-            child: const Text('Register'),),
+            child: const Text('Register'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pushNamedAndRemoveUntil('/login/', (route) => false);
+              },
+              child: const Text('Already registered? Login here!'),
+            )
           ],
-        );
-        default:
-        return const Text('Loading');
-          }
-        },
-      ),
+        )
     );
-  }
-  }
-
-   
-  
+        }
+}

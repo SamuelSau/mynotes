@@ -34,14 +34,7 @@ class _LoginViewState extends State<LoginView>{
   {
     return Scaffold(appBar: AppBar(title: const Text('Login'),
       ),
-      body: FutureBuilder(
-        future: Firebase.initializeApp(
-          options: DefaultFirebaseOptions.currentPlatform,),
-        builder: (context, snapshot) {
-          switch(snapshot.connectionState){  
-            // ignore: todo
-            case ConnectionState.done:       // TODO: Handle this case.
-            return Column(
+      body: Column(
           children: [
             TextField(
               controller: _email,
@@ -79,13 +72,12 @@ class _LoginViewState extends State<LoginView>{
                         }
             }, child: const Text('Login')
           ),
-          ],
-        );
-        default:
-        return const Text('Loading');
-          }
-        },
-      ),
+          TextButton(onPressed: () {
+            Navigator.of(context).pushNamedAndRemoveUntil('/register/', (route) => false);
+          },
+            child: const Text('Not registered yet? Register here!'),
+          )],
+        )
     );
-  }
+    }
 }
